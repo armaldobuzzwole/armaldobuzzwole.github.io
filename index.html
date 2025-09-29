@@ -1,1 +1,108 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>自我介紹 — GitHub Pages 範例</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0a1a3d;
+      --card:#112d55;
+      --muted:#a6b8d8;
+      --accent:#6ee7b7;
+      --glass: rgba(255,255,255,0.05);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:#ffffff;background:linear-gradient(180deg,#0a1a3d 0%, #0d254a 100%)}
+    .wrap{max-width:1000px;margin:6vh auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));border-radius:18px;box-shadow:0 8px 30px rgba(2,6,23,0.6);backdrop-filter:blur(6px);opacity:0;transform:translateY(20px);animation:fadeIn 1.2s ease-out forwards}
 
+    /* Header */
+    .hero{display:grid;grid-template-columns:1fr 280px;gap:28px;align-items:center}
+    .name{font-weight:800;font-size:64px;line-height:0.95;margin:0;color:#ffffff;letter-spacing:-1px;opacity:0;animation:slideUp 1s ease forwards 0.3s}
+    .subtitle{font-weight:600;font-size:20px;margin-top:8px;color:#dce3f1;opacity:0;animation:fadeIn 1s ease forwards 0.8s}
+
+    /* image box */
+    .photo{width:220px;height:220px;border-radius:16px;overflow:hidden;border:4px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;background:var(--glass);transition:transform 0.4s ease, box-shadow 0.4s ease}
+    .photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .photo:hover{transform:scale(1.05);box-shadow:0 12px 28px rgba(0,0,0,0.5)}
+
+    /* three mid headers */
+    .sections{display:flex;flex-direction:column;gap:16px;margin-top:22px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);opacity:0;transform:translateY(20px);animation:slideUp 0.8s ease forwards}
+    .card:nth-child(1){animation-delay:1s}
+    .card:nth-child(2){animation-delay:1.2s}
+    .card:nth-child(3){animation-delay:1.4s}
+    .card:nth-child(4){animation-delay:1.6s}
+    .mid-title{font-size:20px;font-weight:700;margin:0 0 8px 0;color:#ffffff}
+    .mid-body{color:#f0f4ff;margin:0;font-size:15px;line-height:1.6}
+
+    /* layout adjustments */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr;}
+      .photo{width:160px;height:160px;margin:0 auto}
+      .name{font-size:44px}
+    }
+
+    /* small footer */
+    .footer{margin-top:18px;color:#c9d4e8;font-size:13px;text-align:right;opacity:0;animation:fadeIn 1s ease forwards 1.6s}
+    .btn{display:inline-block;padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.2);font-weight:600;text-decoration:none;color:var(--accent);transition:background 0.3s ease,color 0.3s ease}
+    .btn:hover{background:var(--accent);color:#0a1a3d}
+
+    /* Animations */
+    @keyframes fadeIn{
+      to{opacity:1;transform:none}
+    }
+    @keyframes slideUp{
+      from{opacity:0;transform:translateY(20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <h1 class="name"><span id="your-name">張凱翔</span></h1>
+        <div class="subtitle">目前就讀於中原大學 智慧運算與大數據學士班</div>
+
+        <div class="sections">
+          <div class="card">
+            <h2 class="mid-title">關於我</h2>
+            <p class="mid-body">我喜歡數學與程式，我對數學與程式充滿熱情。數學讓我享受解題的邏輯與挑戰，每當找到巧妙的解法時，總能帶給我成就感；程式則讓我能將抽象的想法實際轉化為可運作的系統，從中感受到創造的樂趣。</p>
+          </div>
+
+          <div class="card">
+            <h2 class="mid-title">技能與經驗</h2>
+            <p class="mid-body">在學習數學的過程中，我習慣透過解題來鍛鍊邏輯思維與分析能力。我曾經挑戰過各類數學題目與模擬考試，累積了豐富的練習經驗，也學會如何快速抓住問題的重點。這些經驗不僅提升了我的計算與推理能力，也讓我在面對新問題時能保持冷靜、有條理地思考。最近我也開始學習程式，希望能將數學的思路運用到程式設計中，雖然還在初步階段，但我希望未來可以解決各種生活中的小事。</p>
+          </div>
+
+          <div class="card">
+            <h2 class="mid-title">興趣</h2>
+            <p class="mid-body">除了學習之外，我喜歡透過動漫和音樂放鬆自己。我常看的動漫包括《膽大黨》、《死神》以及《JoJo的奇妙冒險》，喜歡它們帶來的精彩故事與角色魅力。在音樂方面，我會聽各種類型的作品，例如 Maneskin、藤井風、Vaundy 等，喜歡不同曲風帶來的氛圍與感受，這也讓我平時的生活充滿樂趣與能量。</p>
+          </div>
+
+          <div class="card">
+            <h2 class="mid-title">聯絡方式</h2>
+            <p class="mid-body">gamil:cody960829@gmail.com  Github:https://github.com/armaldobuzzwole  </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="photo card">
+        <img id="profile-img" src="profile.jpg" alt="個人照片或代表圖片">
+      </div>
+    </section>
+
+    <p class="footer">想修改文字請直接編輯上方標籤 <code>#your-name</code> 與各段落內容。部署到 GitHub Pages：把此檔案命名為 <code>index.html</code>，推到 repo 的主分支（或 gh-pages 分支），然後在 repo 的 Settings → Pages 啟用。</p>
+  </main>
+
+  <script>
+    const img = document.getElementById('profile-img');
+    img.onerror = () => {
+      img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="100%" height="100%" fill="#112d55"/><text x="50%" y="50%" fill="#ffffff" font-size="28" font-family="Inter,Arial" dominant-baseline="middle" text-anchor="middle">No image</text></svg>');
+    };
+  </script>
+</body>
+</html>
