@@ -8,123 +8,258 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0a1a3d;
-      --card:#112d55;
-      --muted:#a6b8d8;
-      --accent:#6ee7b7;
-      --glass: rgba(255,255,255,0.05);
+      --body-bg: linear-gradient(180deg,#0a1a3d 0%, #0d254a 100%);
+      --wrap-bg: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      --card-bg: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      --text-primary: #ffffff;
+      --text-secondary: #c9d4e8;
+      --accent: #6ee7b7;
+      --accent-text: #0a1a3d;
+      --border-color: rgba(255,255,255,0.1);
+      --shadow: 0 8px 30px rgba(2,6,23,0.6);
+      --hover-shadow: 0 12px 28px rgba(0,0,0,0.5);
     }
+    html[data-theme='light'] {
+      --body-bg: linear-gradient(180deg, #f0f2f5 0%, #e9ebee 100%);
+      --wrap-bg: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+      --card-bg: linear-gradient(180deg, #ffffff, #f9f9f9);
+      --text-primary: #1c1e21;
+      --text-secondary: #606770;
+      --accent: #007bff;
+      --accent-text: #ffffff;
+      --border-color: rgba(0,0,0,0.1);
+      --shadow: 0 8px 30px rgba(0,0,0,0.1);
+      --hover-shadow: 0 12px 28px rgba(0,0,0,0.15);
+    }
+
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:#ffffff;background:linear-gradient(180deg,#0a1a3d 0%, #0d254a 100%)}
-    .wrap{max-width:1000px;margin:6vh auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));border-radius:18px;box-shadow:0 8px 30px rgba(2,6,23,0.6);backdrop-filter:blur(6px);opacity:0;transform:translateY(20px);animation:fadeIn 1.2s ease-out forwards}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--text-primary);background:var(--body-bg); transition: color 0.5s ease;}
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+    .theme-overlay{
+      position: fixed;
+      top:0; left:0; width:100%; height:100%;
+      pointer-events: none;
+      z-index: 1;
+      background: var(--body-bg);
+      transition: background 0.5s ease, opacity 0.5s ease;
+    }
+    .wrap{max-width:1000px;margin:6vh auto;padding:28px;background:var(--wrap-bg);border-radius:18px;box-shadow:var(--shadow);backdrop-filter:blur(6px); transition: background 0.5s ease, box-shadow 0.5s ease; position: relative; z-index: 2;}
+    .name, .subtitle { opacity: 0; transform: translateY(20px); animation: slideUp 0.8s ease-out forwards; }
+    .photo.card { animation-delay: 0.2s; }
+    .name { animation-delay: 0.4s; }
+    .subtitle { animation-delay: 0.6s; }
+    .links .btn { opacity: 0; animation: slideUp 0.6s ease-out forwards; }
+    .links .btn:nth-child(1) { animation-delay: 0.8s; }
+    .links .btn:nth-child(2) { animation-delay: 0.9s; }
+    .links .btn:nth-child(3) { animation-delay: 1.0s; }
 
-    /* Header */
-    .hero{display:flex;flex-direction:column;align-items:center;gap:24px}
-    .name{font-weight:800;font-size:64px;line-height:0.95;margin:0;color:#ffffff;letter-spacing:-1px;opacity:0;animation:slideUp 1s ease forwards 0.3s;text-align:center}
-    .subtitle{font-weight:600;font-size:20px;margin-top:8px;color:#dce3f1;opacity:0;animation:fadeIn 1s ease forwards 0.8s;text-align:center}
-
-    /* image box */
-    .photo{width:220px;height:220px;border-radius:50%;overflow:hidden;border:4px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;background:var(--glass);transition:transform 0.4s ease, box-shadow 0.4s ease}
+    .photo{width:220px;height:220px;border-radius:50%;overflow:hidden;border:4px solid var(--border-color);display:flex;align-items:center;justify-content:center;background:var(--card-bg);transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.5s ease, background 0.5s ease}
     .photo img{width:100%;height:100%;object-fit:cover;display:block}
-    .photo:hover{transform:scale(1.05);box-shadow:0 12px 28px rgba(0,0,0,0.5)}
-
-    /* three mid headers */
+    .photo:hover{transform:scale(1.05);box-shadow:var(--hover-shadow)}
     .sections{display:flex;flex-direction:column;gap:16px;margin-top:22px;width:100%}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);opacity:0;transform:translateY(20px);animation:slideUp 0.8s ease forwards}
-    .card:nth-child(1){animation-delay:1s}
-    .card:nth-child(2){animation-delay:1.2s}
-    .card:nth-child(3){animation-delay:1.4s}
-    .card:nth-child(4){animation-delay:1.6s}
-    .card:nth-child(5){animation-delay:1.8s}
-    .card:nth-child(6){animation-delay:2s}
-    .mid-title{font-size:20px;font-weight:700;margin:0 0 8px 0;color:#ffffff}
-    .mid-body{color:#f0f4ff;margin:0;font-size:15px;line-height:1.6}
-
-    /* buttons section */
+    .card{background:var(--card-bg);padding:18px;border-radius:12px;border:1px solid var(--border-color);opacity:0;transform:translateY(20px);animation:slideUp 0.8s ease forwards; transition: background 0.5s ease, border-color 0.5s ease, color 0.5s ease;}
+    .sections .card:nth-child(1){animation-delay:1.2s}
+    .sections .card:nth-child(2){animation-delay:1.3s}
+    .sections .card:nth-child(3){animation-delay:1.4s}
+    .sections .card:nth-child(4){animation-delay:1.5s}
+    .sections .card:nth-child(5){animation-delay:1.6s}
+    .sections .card:nth-child(6){animation-delay:1.7s}
+    .mid-title{font-size:20px;font-weight:700;margin:0 0 8px 0;color:var(--text-primary)}
+    .mid-body{color:var(--text-secondary);margin:0;font-size:15px;line-height:1.6}
     .links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
-    .btn{flex:1 1 120px;text-align:center;padding:12px 16px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.2);font-weight:600;text-decoration:none;color:#ffffff;transition:background 0.3s ease,color 0.3s ease,transform 0.2s ease}
-    .btn:hover{background:var(--accent);color:#0a1a3d;transform:translateY(-3px)}
+    .btn{flex:1 1 120px;text-align:center;padding:12px 16px;border-radius:12px;background:var(--card-bg);border:1px solid var(--border-color);font-weight:600;text-decoration:none;color:var(--text-primary);transition:background 0.5s ease,color 0.5s ease,transform 0.2s ease, border-color 0.5s ease;}
+    .btn:hover{background:var(--accent);color:var(--accent-text);transform:translateY(-3px)}
+    @media (max-width:880px){ .name{font-size:44px} .photo{width:160px;height:160px} }
+    .footer{margin-top:18px;color:var(--text-secondary);font-size:13px;text-align:center;opacity:0;animation:fadeIn 1s ease forwards 1.9s}
+    @keyframes fadeIn{ to{opacity:1;transform:none} }
+    @keyframes slideUp{ from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    #theme-toggle { position: fixed; top: 20px; right: 20px; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--border-color); background-color: var(--card-bg); cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 0; transition: background-color 0.5s ease, border-color 0.5s ease; }
+    #theme-toggle svg { width: 24px; height: 24px; fill: var(--text-primary); transition: fill 0.5s ease; }
+    #theme-toggle .moon { display: none; }
+    #theme-toggle .sun { display: block; }
+    html[data-theme='light'] #theme-toggle .moon { display: block; }
+    html[data-theme='light'] #theme-toggle .sun { display: none; }
+    
+    .typed-cursor { color: var(--accent); font-weight: 300; }
 
-    /* layout adjustments */
-    @media (max-width:880px){
-      .name{font-size:44px}
-      .photo{width:160px;height:160px}
+    /* 🚀 回到頂部火箭按鈕 */
+    #back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: var(--accent);
+      color: var(--accent-text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      overflow: visible;
+    }
+    #back-to-top.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .rocket-launch {
+      animation: rocketUp 1s ease forwards;
+    }
+    @keyframes rocketUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      50% { transform: translateY(-150px) scale(1.2); opacity: 1; }
+      100% { transform: translateY(-400px) scale(0.8); opacity: 0; }
+    }
+    #back-to-top::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      width: 10px;
+      height: 20px;
+      background: radial-gradient(circle at 50% 30%, #ffcc00, #ff6600 60%, transparent 100%);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    #back-to-top.rocket-launch::after {
+      opacity: 1;
+      animation: flame 0.6s ease-out forwards;
+    }
+    @keyframes flame {
+      0% { transform: scaleY(1) translateY(0); opacity: 1; }
+      50% { transform: scaleY(1.8) translateY(10px); opacity: 0.8; }
+      100% { transform: scaleY(0.5) translateY(20px); opacity: 0; }
     }
 
-    /* small footer */
-    .footer{margin-top:18px;color:#c9d4e8;font-size:13px;text-align:center;opacity:0;animation:fadeIn 1s ease forwards 1.6s}
-
-    /* Animations */
-    @keyframes fadeIn{
-      to{opacity:1;transform:none}
+    /* 🎁 驚喜按鈕樣式 */
+    .surprise-link {
+      text-align: center;
+      margin-top: 12px;
     }
-    @keyframes slideUp{
-      from{opacity:0;transform:translateY(20px)}
-      to{opacity:1;transform:translateY(0)}
+    .surprise-btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: var(--accent-text);
+      border-radius: 20px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 1.8s infinite;
+    }
+    .surprise-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 rgba(0,0,0,0.2); }
+      50% { box-shadow: 0 0 12px var(--accent); }
     }
   </style>
 </head>
 <body>
+  <div id="particles-js"></div>
+  <div class="theme-overlay"></div>
+
+  <button id="theme-toggle" title="切換深色/淺色模式">
+    <svg class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.592a.75.75 0 01-1.06-1.061l1.591-1.591a.75.75 0 011.06 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.836 17.836a.75.75 0 01-1.06 0l-1.591-1.591a.75.75 0 111.06-1.06l1.591 1.591a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 18.894a.75.75 0 010-1.06l1.591-1.592a.75.75 0 011.06 1.061l-1.591 1.591a.75.75 0 01-1.06 0zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.591 1.591a.75.75 0 11-1.06 1.06l-1.591-1.591a.75.75 0 010-1.06z"></path></svg>
+    <svg class="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69a.75.75 0 01.981.981A10.503 10.503 0 0112 22.5C6.202 22.5 1.5 17.798 1.5 12A10.503 10.503 0 012.55 4.354a.75.75 0 01.819-.162z" clip-rule="evenodd"></path></svg>
+  </button>
+
   <main class="wrap">
     <section class="hero">
-      <!-- 照片最上面 -->
       <div class="photo card">
         <img id="profile-img" src="profile.jpg" alt="個人照片或代表圖片">
       </div>
-
-      <!-- 名字與介紹 -->
-      <h1 class="name"><span id="your-name">張凱翔</span></h1>
+      <h1 class="name"><span id="typewriter-target"></span></h1>
       <div class="subtitle">目前就讀於中原大學 智慧運算與大數據學士班</div>
-
-      <!-- 按鈕連結 -->
       <div class="links">
         <a class="btn" href="mailto:cody960829@gmail.com">📧 Email</a>
         <a class="btn" href="https://github.com/armaldobuzzwole" target="_blank">💻 GitHub</a>
         <a class="btn" href="https://www.instagram.com/0829_arctic_chang" target="_blank">📷 Instagram</a>
       </div>
-
-      <!-- 三個中標與其他卡片 -->
       <div class="sections">
+        <div class="card"><h2 class="mid-title">關於我</h2><p class="mid-body">我喜歡數學與程式，我對數學與程式充滿熱情。數學讓我享受解題的邏輯與挑戰，每當找到巧妙的解法時，總能帶給我成就感；<br>程式則讓我能將抽象的想法實際轉化為可運作的系統，從中感受到創造的樂趣。</p></div>
+        <div class="card"><h2 class="mid-title">技能</h2><p class="mid-body">在學習數學的過程中，我習慣透過解題來鍛鍊邏輯思維與分析能力。我曾經挑戰過各類數學題目與模擬考試，累積了豐富的練習經驗，也學會如何快速抓住問題的重點。<br>這些經驗不僅提升了我的計算與推理能力，也讓我在面對新問題時能保持冷靜、有條理地思考。最近我也開始學習程式，希望能將數學的思路運用到程式設計中，雖然還在初步階段，但我希望未來可以解決各種生活中的小事。</p></div>
+        <div class="card"><h2 class="mid-title">經驗</h2><p class="mid-body">在學習經驗方面，我從新埔國小、中山國中到內湖高中一路累積扎實的數學基礎。<br>曾在校內數學競賽中獲得前三名的好成績，也在高二與高三時期保持數學成績在全級前 1%。這些經歷不僅提升了我的解題能力，也讓我養成有條理、耐心分析問題的習慣，並持續激發我對數學的興趣與挑戰精神。</p></div>
+        <div class="card"><h2 class="mid-title">學習目標/未來規劃</h2><p class="mid-body">在大學階段，我希望能專注課業，取得優異的成績，建立紮實的專業基礎。<br>為達成這個目標，我計畫規律安排學習時間，搭配課堂筆記、課後練習與專題研究，逐步提升理解與分析能力。同時，我也計畫在完成大學學業後前往國外進修，除了選擇合適的研究領域外，也會提前準備語言能力與申請資料，以拓展視野並提升專業競爭力，為未來發展打下堅實基礎。</p></div>
+        <div class="card"><h2 class="mid-title">興趣</h2><p class="mid-body">除了學習之外，我喜歡透過動漫和音樂放鬆自己。<br>我常看的動漫包括《膽大黨》、《死神》以及《JoJo的奇妙冒險》，喜歡它們帶來的精彩故事與角色魅力。<br>在音樂方面，我會聽各種類型的作品，例如 Maneskin、藤井風、Vaundy 等，喜歡不同曲風帶來的氛圍與感受，這也讓我平時的生活充滿樂趣與能量。</p></div>
+        <!-- ⚡ 改成結語 -->
         <div class="card">
-          <h2 class="mid-title">關於我</h2>
-          <p class="mid-body">我喜歡數學與程式，我對數學與程式充滿熱情。數學讓我享受解題的邏輯與挑戰，每當找到巧妙的解法時，總能帶給我成就感；程式則讓我能將抽象的想法實際轉化為可運作的系統，從中感受到創造的樂趣。</p>
-        </div>
-
-        <div class="card">
-          <h2 class="mid-title">技能</h2>
-          <p class="mid-body">在學習數學的過程中，我習慣透過解題來鍛鍊邏輯思維與分析能力。我曾經挑戰過各類數學題目與模擬考試，累積了豐富的練習經驗，也學會如何快速抓住問題的重點。這些經驗不僅提升了我的計算與推理能力，也讓我在面對新問題時能保持冷靜、有條理地思考。最近我也開始學習程式，希望能將數學的思路運用到程式設計中，雖然還在初步階段，但我希望未來可以解決各種生活中的小事。</p>
-        </div>
-
-        <div class="card">
-          <h2 class="mid-title">經驗</h2>
-          <p class="mid-body">在學習經驗方面，我從新埔國小、中山國中到內湖高中一路累積扎實的數學基礎。曾在校內數學競賽中獲得前三名的好成績，也在高二與高三時期保持數學成績在全級前 1%。這些經歷不僅提升了我的解題能力，也讓我養成有條理、耐心分析問題的習慣，並持續激發我對數學的興趣與挑戰精神。</p>
-        </div>
-
-        <div class="card">
-          <h2 class="mid-title">學習目標/未來規劃</h2>
-          <p class="mid-body">在大學階段，我希望能專注課業，取得優異的成績，建立紮實的專業基礎。為達成這個目標，我計畫規律安排學習時間，搭配課堂筆記、課後練習與專題研究，逐步提升理解與分析能力。同時，我也計畫在完成大學學業後前往國外進修，除了選擇合適的研究領域外，也會提前準備語言能力與申請資料，以拓展視野並提升專業競爭力，為未來發展打下堅實基礎。</p>
-        </div>
-
-        <div class="card">
-          <h2 class="mid-title">興趣</h2>
-          <p class="mid-body">除了學習之外，我喜歡透過動漫和音樂放鬆自己。我常看的動漫包括《膽大黨》、《死神》以及《JoJo的奇妙冒險》，喜歡它們帶來的精彩故事與角色魅力。在音樂方面，我會聽各種類型的作品，例如 Maneskin、藤井風、Vaundy 等，喜歡不同曲風帶來的氛圍與感受，這也讓我平時的生活充滿樂趣與能量。</p>
-        </div>
-
-        <div class="card">
-          <h2 class="mid-title">聯絡方式</h2>
-          <p class="mid-body">gmail: cody960829@gmail.com<br>Github: https://github.com/armaldobuzzwole</p>
+          <h2 class="mid-title">結語</h2>
+          <p class="mid-body">
+            感謝你瀏覽我的個人網頁！<br>
+            如果你有興趣，未來還會有更多更新與驚喜。<br>
+            點擊下方的按鈕，也許會發現一些小彩蛋 🎉
+          </p>
+          <div class="surprise-link">
+            <a href="https://example.com" target="_blank" class="surprise-btn">🎁 驚喜</a>
+          </div>
         </div>
       </div>
     </section>
-
-    <p class="footer">部署到 GitHub Pages：把此檔案命名為 <code>index.html</code>，推到 repo 主分支（或 gh-pages 分支），再到 Settings → Pages 啟用。</p>
+    <p class="footer">© 2025 我的個人網站 | 使用 HTML + CSS + JS 建立</p>
   </main>
 
+  <!-- 🚀 回到頂部火箭按鈕 -->
+  <button id="back-to-top" title="回到頂部">🚀</button>
+
+  <!-- Scripts -->
+
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   <script>
-    const img = document.getElementById('profile-img');
-    img.onerror = () => {
-      img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="100%" height="100%" fill="#112d55"/><text x="50%" y="50%" fill="#ffffff" font-size="28" font-family="Inter,Arial" dominant-baseline="middle" text-anchor="middle">No image</text></svg>');
-    };
+
+    // 打字效果
+    new Typed("#typewriter-target", {
+      strings: ["嗨，我是張凱翔 Kai-Hsiang Chang", "歡迎來到我的個人頁面"],
+      typeSpeed: 50,
+      backSpeed: 30,
+      backDelay: 1500,
+      startDelay: 500,
+      loop: true
+    });
+
+    // ✅ 主題切換
+    const themeToggle = document.getElementById("theme-toggle");
+    themeToggle.addEventListener("click", () => {
+      const html = document.documentElement;
+      const overlay = document.querySelector(".theme-overlay");
+      const isLight = html.getAttribute("data-theme") === "light";
+      overlay.style.opacity = 1;
+      setTimeout(() => {
+        html.setAttribute("data-theme", isLight ? "dark" : "light");
+        overlay.style.opacity = 0;
+      }, 500);
+    });
+
+    // ✅ 回到頂部火箭動畫
+    const backToTop = document.getElementById("back-to-top");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 200) {
+        backToTop.classList.add("show");
+      } else {
+        backToTop.classList.remove("show");
+      }
+    });
+    backToTop.addEventListener("click", () => {
+      backToTop.classList.add("rocket-launch");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => {
+        backToTop.classList.remove("rocket-launch");
+      }, 1000);
+    });
   </script>
 </body>
 </html>
