@@ -8,6 +8,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   
   <style>
+    /* 您的所有 CSS 樣式都保持不變 */
+    .skills { width: 300px; margin-left: 40px; }
+    .skill { margin-bottom: 15px; }
+    .skill span { display: block; margin-bottom: 5px; font-weight: 600; }
+    .progress { background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; height: 22px; }
+    .progress-bar {
+      background: linear-gradient(90deg, #6ee7b7, #3b82f6);
+      height: 100%;
+      line-height: 22px;
+      color: #fff;
+      font-size: 13px;
+      text-align: right;
+      padding-right: 8px;
+      border-radius: 10px 0 0 10px;
+      transition: width 1s ease-in-out;
+      width: 0%; /* 初始寬度為 0 */
+    }
     :root{
       --body-bg: linear-gradient(180deg,#0a1a3d 0%, #0d254a 100%);
       --wrap-bg: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
@@ -32,23 +49,10 @@
       --shadow: 0 8px 30px rgba(0,0,0,0.1);
       --hover-shadow: 0 12px 28px rgba(0,0,0,0.15);
     }
-
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--text-primary);background:var(--body-bg); transition: color 0.5s ease;}
-    #particles-js {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
-    }
-    .theme-overlay{
-      position: fixed;
-      top:0; left:0; width:100%; height:100%;
-      pointer-events: none;
-      z-index: 1;
-      background: var(--body-bg);
-      transition: background 0.5s ease, opacity 0.5s ease;
-    }
+    #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+    .theme-overlay{ position: fixed; top:0; left:0; width:100%; height:100%; pointer-events: none; z-index: 1; background: var(--body-bg); transition: background 0.5s ease, opacity 0.5s ease; }
     .wrap{max-width:1000px;margin:6vh auto;padding:28px;background:var(--wrap-bg);border-radius:18px;box-shadow:var(--shadow);backdrop-filter:blur(6px); transition: background 0.5s ease, box-shadow 0.5s ease; position: relative; z-index: 2;}
     .name, .subtitle { opacity: 0; transform: translateY(20px); animation: slideUp 0.8s ease-out forwards; }
     .photo.card { animation-delay: 0.2s; }
@@ -59,8 +63,7 @@
     .links .btn:nth-child(2) { animation-delay: 0.9s; }
     .links .btn:nth-child(3) { animation-delay: 1.0s; }
     .links .btn:nth-child(4) { animation-delay: 1.0s; }
-
-    .photo{width:220px;height:220px;border-radius:50%;overflow:hidden;border:4px solid var(--border-color);display:flex;align-items:center;justify-content:center;background:var(--card-bg);transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.5s ease, background 0.5s ease}
+    .photo{width:300px;height:300px;border-radius:50%;overflow:hidden;border:4px solid var(--border-color);display:flex;align-items:center;justify-content:center;background:var(--card-bg);transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.5s ease, background 0.5s ease}
     .photo img{width:100%;height:100%;object-fit:cover;display:block}
     .photo:hover{transform:scale(1.05);box-shadow:var(--hover-shadow)}
     .sections{display:flex;flex-direction:column;gap:16px;margin-top:22px;width:100%}
@@ -86,92 +89,22 @@
     #theme-toggle .sun { display: block; }
     html[data-theme='light'] #theme-toggle .moon { display: block; }
     html[data-theme='light'] #theme-toggle .sun { display: none; }
-    
     .typed-cursor { color: var(--accent); font-weight: 300; }
-
-    /* 🚀 回到頂部火箭按鈕 */
-    #back-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: none;
-      background: var(--accent);
-      color: var(--accent-text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-      z-index: 999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-      overflow: visible;
-    }
-    #back-to-top.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .rocket-launch {
-      animation: rocketUp 1s ease forwards;
-    }
-    @keyframes rocketUp {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      50% { transform: translateY(-150px) scale(1.2); opacity: 1; }
-      100% { transform: translateY(-400px) scale(0.8); opacity: 0; }
-    }
-    #back-to-top::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      width: 10px;
-      height: 20px;
-      background: radial-gradient(circle at 50% 30%, #ffcc00, #ff6600 60%, transparent 100%);
-      border-radius: 50%;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-    #back-to-top.rocket-launch::after {
-      opacity: 1;
-      animation: flame 0.6s ease-out forwards;
-    }
-    @keyframes flame {
-      0% { transform: scaleY(1) translateY(0); opacity: 1; }
-      50% { transform: scaleY(1.8) translateY(10px); opacity: 0.8; }
-      100% { transform: scaleY(0.5) translateY(20px); opacity: 0; }
-    }
-
-    /* 🎁 驚喜按鈕樣式 */
-    .surprise-link {
-      text-align: center;
-      margin-top: 12px;
-    }
-    .surprise-btn {
-      display: inline-block;
-      padding: 8px 16px;
-      background: var(--accent);
-      color: var(--accent-text);
-      border-radius: 20px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: pulse 1.8s infinite;
-    }
-    .surprise-btn:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 rgba(0,0,0,0.2); }
-      50% { box-shadow: 0 0 12px var(--accent); }
-    }
+    #back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; border: none; background: var(--accent); color: var(--accent-text); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 6px 12px rgba(0,0,0,0.2); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; overflow: visible; }
+    #back-to-top.show { opacity: 1; pointer-events: auto; }
+    .rocket-launch { animation: rocketUp 1s ease forwards; }
+    @keyframes rocketUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 50% { transform: translateY(-150px) scale(1.2); opacity: 1; } 100% { transform: translateY(-400px) scale(0.8); opacity: 0; } }
+    #back-to-top::after { content: ''; position: absolute; bottom: -8px; width: 10px; height: 20px; background: radial-gradient(circle at 50% 30%, #ffcc00, #ff6600 60%, transparent 100%); border-radius: 50%; opacity: 0; transition: opacity 0.2s ease; }
+    #back-to-top.rocket-launch::after { opacity: 1; animation: flame 0.6s ease-out forwards; }
+    @keyframes flame { 0% { transform: scaleY(1) translateY(0); opacity: 1; } 50% { transform: scaleY(1.8) translateY(10px); opacity: 0.8; } 100% { transform: scaleY(0.5) translateY(20px); opacity: 0; } }
+    .surprise-link { text-align: center; margin-top: 12px; }
+    .surprise-btn { display: inline-block; padding: 8px 16px; background: var(--accent); color: var(--accent-text); border-radius: 20px; font-weight: 600; text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease; animation: pulse 1.8s infinite; }
+    .surprise-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 rgba(0,0,0,0.2); } 50% { box-shadow: 0 0 12px var(--accent); } }
   </style>
 </head>
 <body>
+
   <div id="particles-js"></div>
   <div class="theme-overlay"></div>
 
@@ -181,166 +114,148 @@
   </button>
 
   <main class="wrap">
-    <section class="hero">
+    <div class="profile-section" style="display: flex; align-items: center; gap: 40px;">
       <div class="photo card">
-        <img id="profile-img" src="https://github.com/armaldobuzzwole.png?size=220" alt="GitHub個人頭貼">
-      </div>
-      <h1 class="name"><span id="typewriter-target"></span></h1>
-      <div class="subtitle">目前就讀於中原大學 智慧運算與大數據學士班<br>
-                            Chung Yuan Christian University Program in Intellgent Computing and Big Data</div>
-      <div class="links">
-        <!-- 按鈕連結 -->
-      <div class="links">
-  <a class="btn" href="mailto:cody960829@gmail.com">📧 Email</a>
-  <a class="btn" href="https://github.com/armaldobuzzwole" target="_blank">💻 GitHub</a>
-  <a class="btn" href="https://www.instagram.com/0829_arctic_chang" target="_blank">📷 Instagram</a>
-  <a class="btn" href="resume.pdf" download>📄 resume</a>
-</div>
-
+        <img id="profile-img" src="投向.JPEG" alt="個人照片或代表圖片">
       </div>
-      <div class="sections">
-        <div class="card">
-          <h2 class="mid-title">關於我/About Me</h2>
-          <p class="mid-body">我喜歡數學與程式，我對數學與程式充滿熱情。<br>
-            數學讓我享受解題的邏輯與挑戰，每當找到巧妙的解法時，總能帶給我成就感；<br>
-            程式則讓我能將抽象的想法實際轉化為可運作的系統，從中感受到創造的樂趣。<br>
-            -----------------------------------------------------------------------------------------------------------------------------------<br>
-            I love mathematics and programming and am deeply passionate about both fields.<br>
-            Mathematics allows me to enjoy the logic and challenge of problem-solving.<br>
-            I always feel a great sense of accomplishment whenever I discover an elegant solution.<br>
-            Programming, on the other hand, enables me to translate abstract ideas into functional, <br>
-            working systems, which gives me the pure joy of creation.</p></div>
-        <div class="card">
-          <h2 class="mid-title">技能/Skills</h2>
-          <p class="mid-body">在學習數學的過程中，我習慣透過解題來鍛鍊邏輯思維與分析能力。<br>
-            我曾經挑戰過各類數學題目與模擬考試，累積了豐富的練習經驗，也學會如何快速抓住問題的重點。<br>
-            這些經驗不僅提升了我的計算與推理能力，也讓我在面對新問題時能保持冷靜、有條理地思考。<br>
-            最近我也開始學習程式，希望能將數學的思路運用到程式設計中，雖然還在初步階段，但我希望未來可以解決各種生活中的小事。<br>
-            -----------------------------------------------------------------------------------------------------------------------------------<br>
-            In learning math, I habitually train my logical thinking and analytical skills through problem-solving.<br>
-            I've challenged myself with various math problems and mock exams,<br>
-            accumulating extensive practice experience and learning how to quickly grasp the core of a problem.<br>
-            This experience has not only boosted my calculation and reasoning abilities <br>
-            but also taught me how to approach new problems calmly and systematically.<br>
-            Recently, I also started learning programming. My goal is to apply my mathematical mindset to coding.<br>
-            Although I am still in the initial stages, I hope to use programming in the future to solve various minor issues in daily life.</p></div>
-        <div class="card">
-          <h2 class="mid-title">經驗/Experiences</h2>
-          <p class="mid-body">在學習經驗方面，我從新埔國小、中山國中到內湖高中一路累積扎實的數學基礎。<br>
-            曾在校內數學競賽中獲得前三名的好成績，也在高二與高三時期保持數學成績在全級前 1%。<br>
-            這些經歷不僅提升了我的解題能力，也讓我養成有條理、耐心分析問題的習慣，並持續激發我對數學的興趣與挑戰精神。<br>
-            -----------------------------------------------------------------------------------------------------------------------------------<br>
-            In terms of my learning experience, I have built a solid foundation in mathematics spanning my time<br>
-            from Xinpu Elementary School and Zhongshan Junior High School through Neihu Senior High School.<br>
-            I achieved top-three placements in school-level mathematics competitions and maintained my math grades within the top 1% <br>
-            of the entire grade during my 11th and 12th years of high school.<br>
-            These experiences have not only sharpened my problem-solving abilities but have also instilled 
-            in me the habit of systematic and patient analysis. They continue to fuel my interest and competitive spirit in mathematics.</p></div>
-        <div class="card">
-          <h2 class="mid-title">學習目標與未來規劃/Study Goals and Future Plans</h2>
-          <p class="mid-body">在大學階段，我希望能專注課業，取得優異的成績，建立紮實的專業基礎。<br>
-            為達成這個目標，我計畫規律安排學習時間，搭配課堂筆記、課後練習與專題研究，逐步提升理解與分析能力。<br>
-            同時，我也計畫在完成大學學業後前往國外進修，除了選擇合適的研究領域外，<br>
-            也會提前準備語言能力與申請資料，以拓展視野並提升專業競爭力，為未來發展打下堅實基礎。<br>
-            -----------------------------------------------------------------------------------------------------------------------------------<br>
-            During my university studies, I plan to focus intensively on my coursework, <br>
-            achieve excellent grades, and establish a solid professional foundation.<br>
-            To achieve this goal, I will structure my time to include regular study sessions, <br>
-            combined with detailed class notes, post-lecture practice, and dedicated project research.<br>
-            This systematic approach will incrementally enhance my comprehension and analytical skills.<br>
-            Concurrently, I plan to pursue further studies abroad after completing my undergraduate degree.<br>
-            In addition to selecting an appropriate research field, <br>
-            I will proactively prepare my language proficiency and application materials.<br>
-            This will allow me to broaden my perspective and enhance my professional competitiveness, <br>
-            laying a robust foundation for my future career development.</p></div>
-        <div class="card">
-          <h2 class="mid-title">興趣/Hobbies</h2>
-          <p class="mid-body">除了學習之外，我喜歡透過動漫和音樂放鬆自己。<br>
-            我常看的動漫包括《膽大黨》、《死神》以及《JoJo的奇妙冒險》，喜歡它們帶來的精彩故事與角色魅力。<br>
-            在音樂方面，我會聽各種類型的作品，例如 Maneskin、藤井風、Vaundy 等，<br>
-            喜歡不同曲風帶來的氛圍與感受，這也讓我平時的生活充滿樂趣與能量。<br>
-            還有最重要的快打旋風6大推，因為當你輸到一個程度就有動力更加努力的讀書了。<br>
-            -----------------------------------------------------------------------------------------------------------------------------------<br>
-            Outside of my studies, I enjoy relaxing through anime and music.<br>
-            The anime I frequently watch includes Dandadan, Bleach, and JoJo's Bizarre Adventure. <br>
-            I love the captivating stories and the charisma of the characters they feature.<br>
-            In music, I listen to a variety of genres and artists such as Måneskin, Fujii Kaze, and Vaundy.<br>
-            I enjoy the different moods and feelings that various styles bring, which fills my daily life with fun and energy.<br>
-            And most importantly, I highly recommend Street Fighter 6!<br>
-            Because when you lose enough, it definitely gives you the motivation to study even harder.</p></div>
-        <!-- ⚡ 改成結語 -->
-        <div class="card">
-          <h2 class="mid-title">結語/Ending</h2>
-          <p class="mid-body">
-            感謝你瀏覽我的個人網頁！<br>
-            如果你有興趣，未來還會有更多更新與驚喜。<br>
-            點擊下方的按鈕，也許會獲得靈魂的極緻饗宴!!🎉<br>
-            建議拿下耳機與降低音量:)<br>
-            -----------------------------------------------------------------------------------------------------------------------------------<br>
-            Thank you for visiting my personal webpage!<br>
-            If you're interested, there will be more updates and surprises coming soon.<br>
-            Click the button below for a chance to receive Soul's ultimate feast!! 🎉<br>
-            (You might want to take off your headphones and lower the volume first!)</p>
-          <div class="surprise-link">
-            <a href="https://www.youtube.com/watch?v=iDLmYZ5HqgM" target="_blank" class="surprise-btn">🎁 surprise</a>
+      <div class="skills">
+        <div class="skill">
+          <span>數學</span>
+          <div class="progress">
+            <div class="progress-bar" data-progress="90">90%</div>
+          </div>
+        </div>
+        <div class="skill">
+          <span>程式設計</span>
+          <div class="progress">
+            <div class="progress-bar" data-progress="20">20%</div>
+          </div>
+        </div>
+        <div class="skill">
+          <span>英文</span>
+          <div class="progress">
+            <div class="progress-bar" data-progress="75">75%</div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+
+    <h1 class="name"><span id="typewriter-target"></span></h1>
+    <div class="subtitle">目前就讀於中原大學 智慧運算與大數據學士班<br>
+      Chung Yuan Christian University Program in Intellgent Computing and Big Data</div>
+    
+    <div class="links">
+        <a class="btn" href="mailto:cody960829@gmail.com">📧 Email</a>
+        <a class="btn" href="https://github.com/armaldobuzzwole" target="_blank">💻 GitHub</a>
+        <a class="btn" href="https://www.instagram.com/0829_arctic_chang" target="_blank">📷 Instagram</a>
+        <a class="btn" href="resume.pdf" download>📄 resume</a>
+    </div>
+
+    <div class="sections">
+      <div class="card">
+        <h2 class="mid-title">關於我/About Me</h2>
+        <p class="mid-body">我喜歡數學與程式，我對數學與程式充滿熱情。<br> 數學讓我享受解題的邏輯與挑戰，每當找到巧妙的解法時，總能帶給我成就感；<br> 程式則讓我能將抽象的想法實際轉化為可運作的系統，從中感受到創造的樂趣。<br> -----------------------------------------------------------------------------------------------------------------------------------<br> I love mathematics and programming and am deeply passionate about both fields.<br> Mathematics allows me to enjoy the logic and challenge of problem-solving.<br> I always feel a great sense of accomplishment whenever I discover an elegant solution.<br> Programming, on the other hand, enables me to translate abstract ideas into functional, <br> working systems, which gives me the pure joy of creation.</p>
+      </div>
+      <div class="card">
+        <h2 class="mid-title">技能/Skills</h2>
+        <p class="mid-body">在學習數學的過程中，我習慣透過解題來鍛鍊邏輯思維與分析能力。<br> 我曾經挑戰過各類數學題目與模擬考試，累積了豐富的練習經驗，也學會如何快速抓住問題的重點。<br> 這些經驗不僅提升了我的計算與推理能力，也讓我在面對新問題時能保持冷靜、有條理地思考。<br> 最近我也開始學習程式，希望能將數學的思路運用到程式設計中，雖然還在初步階段，但我希望未來可以解決各種生活中的小事。<br> -----------------------------------------------------------------------------------------------------------------------------------<br> In learning math, I habitually train my logical thinking and analytical skills through problem-solving.<br> I've challenged myself with various math problems and mock exams,<br> accumulating extensive practice experience and learning how to quickly grasp the core of a problem.<br> This experience has not only boosted my calculation and reasoning abilities <br> but also taught me how to approach new problems calmly and systematically.<br> Recently, I also started learning programming. My goal is to apply my mathematical mindset to coding.<br> Although I am still in the initial stages, I hope to use programming in the future to solve various minor issues in daily life.</p>
+      </div>
+      <div class="card">
+        <h2 class="mid-title">經驗/Experiences</h2>
+        <p class="mid-body">在學習經驗方面，我從新埔國小、中山國中到內湖高中一路累積扎實的數學基礎。<br> 曾在校內數學競賽中獲得前三名的好成績，也在高二與高三時期保持數學成績在全級前 1%。<br> 這些經歷不僅提升了我的解題能力，也讓我養成有條理、耐心分析問題的習慣，並持續激發我對數學的興趣與挑戰精神。<br> -----------------------------------------------------------------------------------------------------------------------------------<br> In terms of my learning experience, I have built a solid foundation in mathematics spanning my time<br> from Xinpu Elementary School and Zhongshan Junior High School through Neihu Senior High School.<br> I achieved top-three placements in school-level mathematics competitions and maintained my math grades within the top 1% <br> of the entire grade during my 11th and 12th years of high school.<br> These experiences have not only sharpened my problem-solving abilities but have also instilled in me the habit of systematic and patient analysis. They continue to fuel my interest and competitive spirit in mathematics.</p>
+      </div>
+      <div class="card">
+        <h2 class="mid-title">學習目標與未來規劃/Study Goals and Future Plans</h2>
+        <p class="mid-body">在大學階段，我希望能專注課業，取得優異的成績，建立紮實的專業基礎。<br> 為達成這個目標，我計畫規律安排學習時間，搭配課堂筆記、課後練習與專題研究，逐步提升理解與分析能力。<br> 同時，我也計畫在完成大學學業後前往國外進修，除了選擇合適的研究領域外，<br> 也會提前準備語言能力與申請資料，以拓展視野並提升專業競爭力，為未來發展打下堅實基礎。<br> -----------------------------------------------------------------------------------------------------------------------------------<br> During my university studies, I plan to focus intensively on my coursework, <br> achieve excellent grades, and establish a solid professional foundation.<br> To achieve this goal, I will structure my time to include regular study sessions, <br> combined with detailed class notes, post-lecture practice, and dedicated project research.<br> This systematic approach will incrementally enhance my comprehension and analytical skills.<br> Concurrently, I plan to pursue further studies abroad after completing my undergraduate degree.<br> In addition to selecting an appropriate research field, <br> I will proactively prepare my language proficiency and application materials.<br> This will allow me to broaden my perspective and enhance my professional competitiveness, <br> laying a robust foundation for my future career development.</p>
+      </div>
+      <div class="card">
+        <h2 class="mid-title">興趣/Hobbies</h2>
+        <p class="mid-body">除了學習之外，我喜歡透過動漫和音樂放鬆自己。<br> 我常看的動漫包括《膽大黨》、《死神》以及《JoJo的奇妙冒險》，喜歡它們帶來的精彩故事與角色魅力。<br> 在音樂方面，我會聽各種類型的作品，例如 Maneskin、藤井風、Vaundy 等，<br> 喜歡不同曲風帶來的氛圍與感受，這也讓我平時的生活充滿樂趣與能量。<br> 還有最重要的快打旋風6大推，因為當你輸到一個程度就有動力更加努力的讀書了。<br> -----------------------------------------------------------------------------------------------------------------------------------<br> Outside of my studies, I enjoy relaxing through anime and music.<br> The anime I frequently watch includes Dandadan, Bleach, and JoJo's Bizarre Adventure. <br> I love the captivating stories and the charisma of the characters they feature.<br> In music, I listen to a variety of genres and artists such as Måneskin, Fujii Kaze, and Vaundy.<br> I enjoy the different moods and feelings that various styles bring, which fills my daily life with fun and energy.<br> And most importantly, I highly recommend Street Fighter 6!<br> Because when you lose enough, it definitely gives you the motivation to study even harder.</p>
+      </div>
+      <div class="card">
+        <h2 class="mid-title">結語/Ending</h2>
+        <p class="mid-body"> 感謝你瀏覽我的個人網頁！<br> 如果你有興趣，未來還會有更多更新與驚喜。<br> 點擊下方的按鈕，也許會獲得靈魂的極緻饗宴!!🎉<br> 建議拿下耳機與降低音量:)<br>多按幾下深淺切換說不定有驚喜喔<br> -----------------------------------------------------------------------------------------------------------------------------------<br> Thank you for visiting my personal webpage!<br> If you're interested, there will be more updates and surprises coming soon.<br> Click the button below for a chance to receive Soul's ultimate feast!! 🎉<br> (You might want to take off your headphones and lower the volume first!)<br>click more times dark/light switch, maybe there will be another surprise!!!</p>
+        <div class="surprise-link">
+          <a href="https://www.youtube.com/watch?v=iDLmYZ5HqgM" target="_blank" class="surprise-btn">🎁 surprise</a>
+        </div>
+      </div>
+    </div>
+    
     <p class="footer">© 2025 張凱翔の個人網站 | 使用 HTML + CSS + JS 建立</p>
   </main>
 
-  <!-- 🚀 回到頂部火箭按鈕 -->
   <button id="back-to-top" title="回到頂部">🚀</button>
 
-  <!-- Scripts -->
-
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  
   <script>
+    document.addEventListener("DOMContentLoaded", () => {
 
-    // 打字效果
-    new Typed("#typewriter-target", {
-      strings: ["嗨，我是張凱翔 Kai-Hsiang Chang", "歡迎來到我的個人頁面", "吾心吾行誠如明鏡, 所作所為皆為正義", "Dirty Deeds Done Dirt Cheap!!!!!"],
-      typeSpeed: 45,
-      backSpeed: 30,
-      backDelay: 1500,
-      startDelay: 400,
-      loop: true
-    });
+      // ✅ 背景粒子效果
+      // 您的程式碼中有 #particles-js 這個 div，但缺少了對應的啟動腳本，我幫您加上了
+      particlesJS("particles-js", {
+        "particles": {
+          "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+          "color": { "value": "#ffffff" },
+          "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } },
+          "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
+          "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 20, "size_min": 0.1, "sync": false } },
+          "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+          "move": { "enable": true, "speed": 1, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+          "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+        },
+        "retina_detect": true
+      });
 
-    // ✅ 主題切換
-    const themeToggle = document.getElementById("theme-toggle");
-    themeToggle.addEventListener("click", () => {
-      const html = document.documentElement;
-      const overlay = document.querySelector(".theme-overlay");
-      const isLight = html.getAttribute("data-theme") === "light";
-      overlay.style.opacity = 1;
-      setTimeout(() => {
-        html.setAttribute("data-theme", isLight ? "dark" : "light");
-        overlay.style.opacity = 0;
-      }, 500);
-    });
+      // ✅ 打字機效果
+      new Typed("#typewriter-target", {
+        strings: ["嗨，我是張凱翔 Kai-Hsiang Chang", "歡迎來到我的個人頁面", "吾心吾行誠如明鏡, 所作所為皆為正義"],
+        typeSpeed: 45, backSpeed: 30, backDelay: 1500, startDelay: 400, loop: true
+      });
 
-    // Tilt 效果
-    VanillaTilt.init(document.querySelectorAll(".photo, .card"), { max: 12, speed: 400, glare: true, "max-glare": 0.2 });
+      // ✅ 主題切換
+      const themeToggle = document.getElementById("theme-toggle");
+      themeToggle.addEventListener("click", () => {
+        const html = document.documentElement;
+        const overlay = document.querySelector(".theme-overlay");
+        const isLight = html.getAttribute("data-theme") === "light";
+        overlay.style.opacity = 1;
+        setTimeout(() => {
+          html.setAttribute("data-theme", isLight ? "dark" : "light");
+          overlay.style.opacity = 0;
+        }, 500);
+      });
 
-    // ✅ 回到頂部火箭動畫
-    const backToTop = document.getElementById("back-to-top");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 200) {
-        backToTop.classList.add("show");
-      } else {
-        backToTop.classList.remove("show");
-      }
-    });
-    backToTop.addEventListener("click", () => {
-      backToTop.classList.add("rocket-launch");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      setTimeout(() => {
-        backToTop.classList.remove("rocket-launch");
-      }, 1000);
+      // ✅ Tilt 效果
+      VanillaTilt.init(document.querySelectorAll(".photo, .card"), { max: 12, speed: 400, glare: true, "max-glare": 0.2 });
+
+      // ✅ 回到頂部火箭動畫
+      const backToTop = document.getElementById("back-to-top");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 200) { backToTop.classList.add("show"); } 
+        else { backToTop.classList.remove("show"); }
+      });
+      backToTop.addEventListener("click", () => {
+        backToTop.classList.add("rocket-launch");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(() => { backToTop.classList.remove("rocket-launch"); }, 1000);
+      });
+
+      // ✅ 進度條動畫
+      const progressBars = document.querySelectorAll(".progress-bar");
+      progressBars.forEach(bar => {
+        const progress = bar.getAttribute("data-progress");
+        setTimeout(() => { bar.style.width = progress + "%"; }, 500);
+      });
+
     });
   </script>
+
 </body>
 </html>
